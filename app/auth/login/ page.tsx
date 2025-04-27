@@ -1,0 +1,152 @@
+"use client"
+
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import Link from "next/link"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { AlertCircle, Loader2 } from "lucide-react"
+
+// 定义表单验证模式
+const formSchema = z.object({
+  username: z.string().min(3, {
+    message: "用户名至少需要3个字符",
+  }),
+  password: z.string().min(6, {
+    message: "密码至少需要6个字符",
+  }),
+  rememberMe: z.boolean().default(false),
+})
+
+export default function LoginPage() {
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  // 初始化表单
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      username: "",
+      password: "",
+      rememberMe: false,
+    },
+  })
+
+  // 表单提交处理
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsLoading(true)
+    setError(null)
+
+    try {
+      // 这里应该调用您的登录API
+      // 示例: const response = await signIn(values.username, values.password)
+
+      // 模拟API调用延迟
+      await new Promise((resolve) => setTimeout(resolve, 1500))
+
+      // 模拟成功登录后重定向
+      router.push("/admin")
+    } catch (err) {
+      setError("登录失败，请检查您的用户名和密码")
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
+      <Card className="w-full max-w-md">
+        <CardHeader className="space-y-1">
+          <CardTitle className="text-2xl font-bold text-center">系统登录</CardTitle>
+          <CardDescription className="text-center">请输入您的账号和密码登录系统</CardDescription>
+        </CardHeader>
+        <CardContent>
+          {error && (
+            <Alert variant="destructive" className="mb-4">
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
+
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <FormField
+                control={form.control}
+                name="username"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>用户名</FormLabel>
+                    <FormControl>
+                      <Input placeholder="请输入用户名" {...field} disabled={isLoading} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>密码</FormLabel>
+                    <FormControl>
+                      <Input type="password" placeholder="请输入密码" {...field} disabled={isLoading} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <div className="flex items-center justify-between">
+                <FormField
+                  control={form.control}
+                  name="rememberMe"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-row items-center space-x-2 space-y-0">
+                      <FormControl>
+                        <Checkbox checked={field.value} onCheckedChange={field.onChange} disabled={isLoading} />
+                      </FormControl>
+                      <FormLabel className="text-sm font-medium leading-none cursor-pointer">记住我</FormLabel>
+                    </FormItem>
+                  )}
+                />
+
+                <Link href="/auth/forgot-password" className="text-sm font-medium text-blue-600 hover:text-blue-500">
+                  忘记密码?
+                </Link>
+              </div>
+
+              <Button type="submit" className="w-full" disabled={isLoading}>
+                {isLoading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    登录中...
+                  </>
+                ) : (
+                  "登录"
+                )}
+              </Button>
+            </form>
+          </Form>
+        </CardContent>
+        <CardFooter className="flex justify-center">
+          <p className="text-sm text-gray-600">
+            还没有账号?{" "}
+            <Link href="/auth/register" className="font-medium text-blue-600 hover:text-blue-500">
+              立即注册
+            </Link>
+          </p>
+        </CardFooter>
+      </Card>
+    </div>
+  )
+}

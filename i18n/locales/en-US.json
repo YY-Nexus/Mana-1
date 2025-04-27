@@ -1,0 +1,123 @@
+{
+  "common": {
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "edit": "Edit",
+    "save": "Save",
+    "loading": "Loading...",
+    "success": "Success",
+    "error": "Error",
+    "warning": "Warning",
+    "info": "Info"
+  },
+  "theme": {
+    "light": "Light Mode",
+    "dark": "Dark Mode",
+    "system": "System"
+  },
+  "feedback": {
+    "title": "Feedback",
+    "subtitle": "Your feedback is important to us",
+    "rating": "Rating",
+    "comment": "Comment",
+    "commentPlaceholder": "Please enter your feedback...",
+    "submit": "Submit Feedback",
+    "thankYou": "Thank you for your feedback!",
+    "error": "Error submitting feedback, please try again."
+  },
+  "designSystem": {
+    "title": "Neuro Design System Showcase",
+    "subtitle": "Showcasing all new design elements and interaction effects",
+    "buttons": {
+      "title": "Button Design",
+      "neuroPulse": {
+        "title": "Neuro Pulse Button",
+        "description": "Three-dimensional button with pulse indicator"
+      },
+      "standard": {
+        "title": "Standard Button Comparison",
+        "description": "Comparison with system default buttons"
+      }
+    },
+    "switchesInputs": {
+      "title": "Switches and Inputs",
+      "neuroSwitch": {
+        "title": "Neuro Switch",
+        "description": "Three-dimensional switch control"
+      },
+      "neuroInput": {
+        "title": "Neuro Input",
+        "description": "Three-dimensional input control"
+      }
+    },
+    "cardsNotifications": {
+      "title": "Cards and Notifications",
+      "neuroCard": {
+        "title": "Neuro Card",
+        "description": "Three-dimensional information card"
+      },
+      "notifications": {
+        "title": "Notification System",
+        "description": "Various types of notification prompts"
+      }
+    },
+    "stateFeedback": {
+      "title": "State Feedback",
+      "loading": {
+        "title": "Loading State",
+        "description": "Various loading state indicators"
+      },
+      "error": {
+        "title": "Error State",
+        "description": "Error state feedback"
+      }
+    }
+  },
+  "components": {
+    "neuroSwitch": {
+      "enableNotifications": "Enable Notifications",
+      "darkMode": "Dark Mode",
+      "disabledState": "Disabled State"
+    },
+    "neuroInput": {
+      "username": "Username",
+      "usernamePlaceholder": "Please enter username",
+      "email": "Email",
+      "emailPlaceholder": "Please enter email",
+      "password": "Password",
+      "passwordPlaceholder": "Please enter password",
+      "passwordError": "Password must be at least 8 characters"
+    },
+    "neuroCard": {
+      "systemStatus": "System Status",
+      "systemStatusSubtitle": "All services running normally",
+      "cpuUsage": "CPU Usage",
+      "memoryUsage": "Memory Usage",
+      "diskUsage": "Disk Usage"
+    },
+    "notifications": {
+      "successNotification": "Success Notification",
+      "errorNotification": "Error Notification",
+      "warningNotification": "Warning Notification",
+      "infoNotification": "Info Notification",
+      "operationSuccess": "Operation Successful",
+      "operationSuccessMessage": "Your operation has been completed successfully!",
+      "operationError": "Operation Failed",
+      "operationErrorMessage": "An error occurred during the operation, please try again.",
+      "operationWarning": "Attention",
+      "operationWarningMessage": "Please note, this operation may have risks.",
+      "operationInfo": "Information",
+      "operationInfoMessage": "This is an informational message for your reference."
+    },
+    "loading": {
+      "quantumVortex": "Quantum Vortex",
+      "buttonLoading": "Button Loading"
+    },
+    "error": {
+      "title": "Operation Failed",
+      "message": "Unable to connect to server, please check your network connection and try again."
+    }
+  }
+}

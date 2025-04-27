@@ -1,0 +1,639 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: 37, 99, 235;
+  --primary-light: 96, 165, 250;
+  --primary-dark: 30, 64, 175;
+  --secondary: 79, 70, 229;
+  --accent: 139, 92, 246;
+  --foreground: 15, 23, 42;
+  --background: 255, 255, 255;
+  --card: 255, 255, 255;
+  --card-foreground: 15, 23, 42;
+  --border: 226, 232, 240;
+  --ring: 37, 99, 235;
+
+  /* 神经设计系统颜色 */
+  --neuro-dark: 10, 31, 51; /* #0A1F33 */
+  --neuro-medium: 26, 58, 94; /* #1A3A5E */
+  --neuro-light: 45, 92, 158; /* #2D5C9E */
+  --neuro-error: 255, 107, 53; /* #FF6B35 */
+  --neuro-success: 34, 197, 94; /* #22C55E */
+  --neuro-warning: 234, 179, 8; /* #EAB308 */
+  --neuro-info: 6, 182, 212; /* #06B6D4 */
+}
+
+.dark {
+  --foreground: 248, 250, 252;
+  --background: 15, 23, 42;
+  --card: 30, 41, 59;
+  --card-foreground: 248, 250, 252;
+  --border: 51, 65, 85;
+
+  /* 暗色主题神经设计系统颜色调整 */
+  --neuro-dark: 7, 21, 36; /* 更暗的背景 */
+  --neuro-medium: 20, 44, 75; /* 更暗的中间色 */
+  --neuro-light: 59, 130, 246; /* 更亮的高亮色 */
+}
+
+body {
+  color: rgb(var(--foreground));
+  background-image: url("/images/background.png");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+/* 内容覆盖层 - 亮色主题 */
+.content-overlay {
+  background-color: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(8px);
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* 内容覆盖层 - 暗色主题 */
+.dark .content-overlay {
+  background-color: rgba(30, 41, 59, 0.75);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 品牌标题样式 */
+.brand-title {
+  background: linear-gradient(135deg, rgb(var(--primary)), rgb(var(--accent)));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+/* 强调文本 */
+.text-accent {
+  color: rgb(var(--accent));
+}
+
+/* 科技感卡片 */
+.tech-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  position: relative;
+}
+
+.tech-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, rgb(var(--primary)), rgb(var(--accent)));
+}
+
+/* 暗色模式科技感卡片 */
+.dark .tech-card {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(30, 41, 59, 0.7));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 导航项目 */
+.nav-item {
+  transition: all 0.2s ease;
+  border-radius: 0.5rem;
+}
+
+.nav-item:hover {
+  background-color: rgba(var(--primary), 0.1);
+}
+
+.nav-item.active {
+  background-color: rgba(var(--primary), 0.15);
+  color: rgb(var(--primary));
+  font-weight: 500;
+}
+
+/* 动态波浪效果 - 用于页面底部 */
+.wave-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%232563EB' fill-opacity='0.2' d='M0,192L48,176C96,160,192,128,288,128C384,128,480,160,576,186.7C672,213,768,235,864,224C960,213,1056,171,1152,149.3C1248,128,1344,128,1392,128L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* ==================== 神经设计系统 ==================== */
+
+/* 一、标题框设计体系 */
+/* 1. 神经脉冲标题框 */
+.neuro-title {
+  position: relative;
+  padding: 1.33rem;
+  background: linear-gradient(145deg, rgb(var(--neuro-dark)), rgb(var(--neuro-medium)));
+  border-radius: 3px;
+  box-shadow: 3px 3px 6px rgba(var(--neuro-dark), 0.3), -3px -3px 6px rgba(var(--neuro-light), 0.2);
+  overflow: hidden;
+}
+
+.neuro-title::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -33%;
+  width: 33%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(var(--neuro-light), 0.3), transparent);
+  animation: neuro-scan 3.3s infinite;
+  will-change: transform; /* 性能优化 */
+}
+
+@keyframes neuro-scan {
+  0% {
+    transform: translateX(0); /* 使用transform代替left，提高性能 */
+    left: -33%;
+  }
+  100% {
+    transform: translateX(500%); /* 使用transform代替left，提高性能 */
+    left: -33%;
+  }
+}
+
+/* 2. 神经信息卡片 */
+.neuro-card {
+  position: relative;
+  background: linear-gradient(145deg, rgba(var(--neuro-dark), 0.7), rgba(var(--neuro-medium), 0.7));
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 3px 3px 10px rgba(var(--neuro-dark), 0.3), -3px -3px 10px rgba(var(--neuro-light), 0.1);
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(var(--neuro-light), 0.1);
+}
+
+.neuro-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, rgba(var(--neuro-light), 0.7), rgba(var(--accent), 0.7));
+}
+
+/* 三、按钮交互设计 */
+/* 1. 神经脉冲主按钮 */
+.neuro-btn {
+  position: relative;
+  padding: 0.7rem 2.3rem;
+  background: linear-gradient(145deg, rgb(var(--neuro-medium)), rgb(var(--neuro-dark)));
+  border: none;
+  border-radius: 33px;
+  color: white;
+  font-weight: 500;
+  transition: all 0.33s cubic-bezier(0.33, 0, 0.67, 1);
+  will-change: transform, box-shadow; /* 性能优化 */
+
+  /* 立体压感 */
+  box-shadow:
+    3px 3px 6px rgba(var(--neuro-dark), 0.3),
+    -3px -3px 6px rgba(var(--neuro-light), 0.2),
+    inset 3px 3px 3px rgba(var(--neuro-light), 0.1),
+    inset -3px -3px 3px rgba(var(--neuro-dark), 0.3);
+}
+
+.neuro-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    4px 4px 8px rgba(var(--neuro-dark), 0.3),
+    -4px -4px 8px rgba(var(--neuro-light), 0.2),
+    inset 3px 3px 3px rgba(var(--neuro-light), 0.1),
+    inset -3px -3px 3px rgba(var(--neuro-dark), 0.3);
+}
+
+.neuro-btn:active {
+  transform: translateY(3px);
+  box-shadow: 1px 1px 3px rgba(var(--neuro-dark), 0.3), -1px -1px 3px rgba(var(--neuro-light), 0.2), inset 3px 3px 3px
+    rgba(var(--neuro-dark), 0.3);
+}
+
+/* 脉冲指示器 */
+.neuro-btn-pulse {
+  position: relative;
+  padding-right: 3rem;
+}
+
+.neuro-btn-pulse::after {
+  content: "›";
+  position: absolute;
+  right: 1.5rem;
+  animation: pulse-arrow 1.3s infinite;
+  will-change: transform, opacity; /* 性能优化 */
+}
+
+@keyframes pulse-arrow {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(33%);
+  }
+}
+
+/* 2. 量子浮动按钮 */
+.float-btn {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(var(--neuro-light));
+  color: white;
+  border-radius: 50%;
+  box-shadow: 0 6px 12px rgba(var(--neuro-dark), 0.3), 0 10px 30px rgba(var(--neuro-light), 0.3);
+
+  /* 量子悬浮效果 */
+  animation: quantum-float 3.3s ease-in-out infinite;
+  position: relative;
+  cursor: pointer;
+  z-index: 10;
+  will-change: transform; /* 性能优化 */
+}
+
+@keyframes quantum-float {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-10%) scale(1.03);
+  }
+}
+
+/* 点击粒子爆发 */
+.float-btn-burst {
+  position: relative;
+  overflow: visible;
+}
+
+.float-btn-burst:active::after {
+  content: "";
+  position: absolute;
+  width: 300%;
+  height: 300%;
+  top: -100%;
+  left: -100%;
+  background: radial-gradient(circle, rgba(var(--neuro-light), 0.3) 0%, transparent 70%);
+  animation: particle-burst 0.33s;
+  z-index: -1;
+  will-change: transform, opacity; /* 性能优化 */
+}
+
+@keyframes particle-burst {
+  from {
+    transform: scale(0);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+/* 3. 神经开关 */
+.neuro-switch {
+  position: relative;
+  width: 60px;
+  height: 30px;
+  background: linear-gradient(145deg, rgba(var(--neuro-dark), 0.9), rgba(var(--neuro-medium), 0.9));
+  border-radius: 15px;
+  cursor: pointer;
+  box-shadow: inset 2px 2px 5px rgba(var(--neuro-dark), 0.5), inset -2px -2px 5px rgba(var(--neuro-light), 0.1);
+  transition: all 0.3s ease;
+}
+
+.neuro-switch::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(145deg, #fff, #e6e6e6);
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(var(--neuro-dark), 0.3);
+  transition: all 0.3s cubic-bezier(0.33, 0, 0.67, 1);
+  will-change: transform; /* 性能优化 */
+}
+
+.neuro-switch.active {
+  background: linear-gradient(145deg, rgba(var(--neuro-light), 0.9), rgba(var(--neuro-medium), 0.9));
+}
+
+.neuro-switch.active::after {
+  transform: translateX(30px);
+  background: linear-gradient(145deg, #fff, #f0f0f0);
+}
+
+/* 四、立体化增强细节 */
+/* 1. 神经凹槽效果 */
+.neuro-groove {
+  position: relative;
+  background: linear-gradient(145deg, rgba(var(--neuro-dark), 0.9), rgba(var(--neuro-light), 0.1));
+  box-shadow: inset 3px 3px 3px rgba(var(--neuro-dark), 0.3), inset -3px -3px 3px rgba(var(--neuro-light), 0.2);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.neuro-groove::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  border: 1px solid rgba(var(--neuro-light), 0.3);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* 2. 量子分割线 */
+.quantum-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgb(var(--neuro-light)) 50%, transparent 100%);
+  position: relative;
+  margin: 2rem 0;
+}
+
+.quantum-divider::after {
+  content: "³";
+  position: absolute;
+  left: 50%;
+  top: -7px;
+  transform: translateX(-50%);
+  text-shadow: 0 0 3px rgb(var(--neuro-light));
+  color: rgb(var(--neuro-light));
+}
+
+/* 3. 神经输入框 */
+.neuro-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(145deg, rgba(var(--neuro-dark), 0.05), rgba(var(--neuro-light), 0.05));
+  border: 1px solid rgba(var(--neuro-light), 0.2);
+  border-radius: 8px;
+  color: inherit;
+  box-shadow: inset 2px 2px 5px rgba(var(--neuro-dark), 0.1), inset -2px -2px 5px rgba(var(--neuro-light), 0.05);
+  transition: all 0.3s ease;
+}
+
+.neuro-input:focus {
+  outline: none;
+  border-color: rgba(var(--neuro-light), 0.5);
+  box-shadow: 0 0 0 2px rgba(var(--neuro-light), 0.2), inset 2px 2px 5px rgba(var(--neuro-dark), 0.1), inset -2px -2px
+    5px rgba(var(--neuro-light), 0.05);
+}
+
+.dark .neuro-input {
+  background: linear-gradient(145deg, rgba(var(--neuro-dark), 0.8), rgba(var(--neuro-medium), 0.8));
+  border-color: rgba(var(--neuro-light), 0.3);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* 五、状态反馈系统 */
+/* 1. 加载态量子漩涡 */
+.neuro-loader {
+  width: 33px;
+  height: 33px;
+  border: 3px solid rgba(var(--neuro-light), 0.2);
+  border-top-color: rgb(var(--neuro-light));
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  position: relative;
+  margin: 0 auto;
+  will-change: transform; /* 性能优化 */
+}
+
+.neuro-loader::after {
+  content: "³";
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: pulse-opacity 1.3s infinite;
+  color: rgb(var(--neuro-light));
+  will-change: opacity; /* 性能优化 */
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes pulse-opacity {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* 2. 错误态熵增波纹 */
+.error-pulse {
+  animation: entropy-alert 0.33s 3;
+  will-change: box-shadow; /* 性能优化 */
+}
+
+@keyframes entropy-alert {
+  0% {
+    box-shadow: 0 0 0 0 rgba(var(--neuro-error), 0.3);
+  }
+  70% {
+    box-shadow: 0 0 0 13px rgba(var(--neuro-error), 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(var(--neuro-error), 0);
+  }
+}
+
+/* 3. 神经通知 */
+.neuro-notification {
+  position: relative;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  background: linear-gradient(145deg, rgba(var(--neuro-dark), 0.7), rgba(var(--neuro-medium), 0.7));
+  backdrop-filter: blur(10px);
+  box-shadow: 3px 3px 10px rgba(var(--neuro-dark), 0.3), -3px -3px 10px rgba(var(--neuro-light), 0.1);
+  border-left: 4px solid rgb(var(--neuro-light));
+  animation: notification-slide-in 0.3s ease-out;
+  will-change: transform, opacity; /* 性能优化 */
+}
+
+.neuro-notification.success {
+  border-left-color: rgb(var(--neuro-success));
+}
+
+.neuro-notification.error {
+  border-left-color: rgb(var(--neuro-error));
+}
+
+.neuro-notification.warning {
+  border-left-color: rgb(var(--neuro-warning));
+}
+
+.neuro-notification.info {
+  border-left-color: rgb(var(--neuro-info));
+}
+
+@keyframes notification-slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* 浮动按钮容器 */
+.floating-buttons-container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  z-index: 50;
+}
+
+/* 浮动按钮菜单 */
+.float-menu {
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  transition: all 0.3s ease;
+  will-change: transform, opacity; /* 性能优化 */
+}
+
+.float-menu.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+.float-menu-item {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgb(var(--neuro-medium));
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(var(--neuro-dark), 0.3), 0 6px 20px rgba(var(--neuro-light), 0.2);
+  transition: all 0.2s ease;
+  will-change: transform; /* 性能优化 */
+}
+
+.float-menu-item:hover {
+  transform: scale(1.1);
+  background: rgb(var(--neuro-light));
+}
+
+.float-menu-tooltip {
+  position: absolute;
+  right: 60px;
+  background: rgba(var(--neuro-dark), 0.9);
+  color: white;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(10px);
+  transition: all 0.2s ease;
+  pointer-events: none;
+  will-change: transform, opacity; /* 性能优化 */
+}
+
+.float-menu-item:hover .float-menu-tooltip {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .floating-buttons-container {
+    bottom: 1rem;
+    right: 1rem;
+  }
+
+  .float-menu {
+    bottom: 60px;
+  }
+
+  .float-menu-item {
+    width: 40px;
+    height: 40px;
+  }
+
+  .float-btn {
+    width: 48px;
+    height: 48px;
+  }
+
+  .float-menu-tooltip {
+    display: none; /* 移动端隐藏提示框 */
+  }
+
+  .neuro-btn {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* 减少动画在低性能设备上的负担 */
+@media (prefers-reduced-motion: reduce) {
+  .neuro-title::after,
+  .neuro-btn-pulse::after,
+  .float-btn,
+  .neuro-loader,
+  .float-menu,
+  .float-menu-item:hover .float-menu-tooltip {
+    animation: none;
+    transition: none;
+  }
+
+  .float-menu.active {
+    opacity: 1;
+    transform: none;
+  }
+}
