@@ -79,8 +79,8 @@
     "chalk": "latest",
     "uuid": "latest",
     "nodemailer": "latest",
-    "react-syntax-highlighter": "latest",
-    "child_process": "latest"
+    "child_process": "latest",
+    "react-syntax-highlighter": "latest"
   },
   "devDependencies": {
     "@types/node": "^22",

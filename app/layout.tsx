@@ -9,6 +9,7 @@ import { NotificationProvider } from "@/contexts/notification-context"
 import { FeedbackCollector } from "@/components/feedback/feedback-collector"
 import { I18nProvider } from "@/contexts/i18n-context"
 import { DesignTokenProvider } from "@/contexts/design-token-context"
+import { BuildErrorBoundary } from "@/components/build-error-boundary"
 
 export const metadata: Metadata = {
   title: "言语『启智』运维管理中心",
@@ -46,9 +47,11 @@ export default function RootLayout({
                     })
                   }}
                 >
-                  {children}
-                  <FloatingActionButtons />
-                  <FeedbackCollector />
+                  <BuildErrorBoundary>
+                    {children}
+                    <FloatingActionButtons />
+                    <FeedbackCollector />
+                  </BuildErrorBoundary>
                 </WithErrorBoundary>
               </NotificationProvider>
             </DesignTokenProvider>

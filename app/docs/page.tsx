@@ -205,7 +205,7 @@ import { NeuroSwitch } from "@/components/neuro-switch"
             <CardContent className="space-y-4">
               <h3 className="text-lg font-medium">安装</h3>
               <SyntaxHighlighter language="bash" style={vscDarkPlus}>
-                npm install @neuro-design/react
+                {"npm install @neuro-design/react"}
               </SyntaxHighlighter>
 
               <h3 className="text-lg font-medium mt-4">设置提供者</h3>
@@ -224,7 +224,7 @@ export default function App({ children }: { children: React.ReactNode }) {
       </I18nProvider>
     </ThemeProvider>
   )
-}`}
+`}
               </SyntaxHighlighter>
 
               <h3 className="text-lg font-medium mt-4">使用组件</h3>
@@ -241,7 +241,7 @@ export default function MyComponent() {
       </NeuroCard>
     </div>
   )
-}`}
+`}
               </SyntaxHighlighter>
             </CardContent>
           </Card>
