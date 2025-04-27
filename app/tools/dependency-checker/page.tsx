@@ -8,6 +8,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Badge } from "@/components/ui/badge"
 import { CheckCircle, XCircle, AlertTriangle, RefreshCw, FileText, Package } from "lucide-react"
 import { Skeleton } from "@/components/ui/skeleton"
+import { isServer } from "../../../lib/node-polyfills"
 
 // 依赖项类型
 type Dependency = {
@@ -76,6 +77,11 @@ export default function DependencyCheckerPage() {
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState<CheckResult | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [dependencies, setDependencies] = useState<{
+    modules: any[]
+    missingDependencies: any[]
+    unusedDependencies: any[]
+  } | null>(null)
 
   const runCheck = async () => {
     setLoading(true)
@@ -103,6 +109,21 @@ export default function DependencyCheckerPage() {
 
   // 初始加载
   useEffect(() => {
+    if (!isServer) {
+      // 在客户端环境中使用模拟数据
+      setDependencies({
+        modules: [
+          { name: "react", usedBy: ["app/page.tsx", "components/ui/button.tsx"] },
+          { name: "next", usedBy: ["app/layout.tsx"] },
+          // 添加更多模拟数据...
+        ],
+        missingDependencies: [],
+        unusedDependencies: [],
+      })
+      setResult(mockResult)
+      setLoading(false)
+      return
+    }
     // 使用模拟数据
     setTimeout(() => {
       setResult(mockResult)
