@@ -1,15 +1,25 @@
-import fs from "fs/promises"
-import path from "path"
-import { glob } from "glob"
+// 根据环境导入不同的模块
+import { isServer } from "@/lib/node-polyfills"
+
+// 条件导入，只在服务器端导入实际的Node.js模块
+const fs = isServer ? require("fs/promises") : require("@/lib/node-polyfills").fs.promises
+const path = isServer ? require("path") : require("@/lib/node-polyfills").path
+// 使用动态导入来避免webpack打包时的问题
+const getGlob = async () => {
+  if (isServer) {
+    return (await import("glob")).glob
+  }
+  return () => Promise.resolve([])
+}
 
 // 依赖项类型
 export type Dependency = {
-  source: string // 导入该依赖的文件
-  line: number // 导入语句所在行
-  importPath: string // 导入路径
-  importType: "import" | "require" | "dynamic" // 导入类型
-  isResolvable: boolean // 是否可解析
-  error?: string // 错误信息
+  source: string
+  line: number
+  importPath: string
+  importType: "import" | "require" | "dynamic"
+  isResolvable: boolean
+  error?: string
 }
 
 // 检查结果类型
@@ -33,6 +43,12 @@ export type CheckResult = {
  * @returns 依赖项数组
  */
 export async function scanFileImports(filePath: string, projectRoot: string): Promise<Dependency[]> {
+  // 在客户端环境中返回空数组
+  if (!isServer) {
+    console.warn("scanFileImports is not supported in browser environment")
+    return []
+  }
+
   try {
     const content = await fs.readFile(filePath, "utf-8")
     const lines = content.split("\n")
@@ -229,7 +245,27 @@ export async function scanFileImports(filePath: string, projectRoot: string): Pr
  * @returns 检查结果
  */
 export async function checkProjectDependencies(projectRoot: string): Promise<CheckResult> {
+  // 在客户端环境中返回模拟数据
+  if (!isServer) {
+    console.warn("checkProjectDependencies is not supported in browser environment")
+    return {
+      scannedFiles: 0,
+      totalImports: 0,
+      unresolvedImports: [],
+      resolvedImports: [],
+      summary: {
+        totalFiles: 0,
+        totalImports: 0,
+        unresolvedCount: 0,
+        resolvedCount: 0,
+      },
+    }
+  }
+
   try {
+    // 获取glob函数
+    const glob = await getGlob()
+
     // 获取所有 TypeScript 和 JavaScript 文件
     const files = await glob("**/*.{ts,tsx,js,jsx}", {
       cwd: projectRoot,

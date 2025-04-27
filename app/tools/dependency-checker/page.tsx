@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { CheckCircle, XCircle, AlertTriangle, RefreshCw, FileText, Package } from "lucide-react"
 import { Skeleton } from "@/components/ui/skeleton"
 
-// 模拟依赖检查API的响应类型
+// 依赖项类型
 type Dependency = {
   source: string
   line: number
@@ -19,6 +19,7 @@ type Dependency = {
   error?: string
 }
 
+// 检查结果类型
 type CheckResult = {
   scannedFiles: number
   totalImports: number
@@ -32,6 +33,45 @@ type CheckResult = {
   }
 }
 
+// 模拟数据
+const mockResult: CheckResult = {
+  scannedFiles: 120,
+  totalImports: 543,
+  unresolvedImports: [
+    {
+      source: "/app/attendance/reports/page.tsx",
+      line: 15,
+      importPath: "@v0/lib/sanitize",
+      importType: "import",
+      isResolvable: false,
+      error: "已知不存在的模块: @v0/lib/sanitize",
+    },
+    {
+      source: "/components/attendance/report/attendance-report-table.tsx",
+      line: 8,
+      importPath: "@v0/lib/sanitize",
+      importType: "import",
+      isResolvable: false,
+      error: "已知不存在的模块: @v0/lib/sanitize",
+    },
+  ],
+  resolvedImports: Array(541)
+    .fill(0)
+    .map((_, i) => ({
+      source: `/example/file${i % 30}.tsx`,
+      line: Math.floor(Math.random() * 100) + 1,
+      importPath: `@/components/example${i % 20}`,
+      importType: Math.random() > 0.7 ? "import" : Math.random() > 0.5 ? "require" : "dynamic",
+      isResolvable: true,
+    })),
+  summary: {
+    totalFiles: 120,
+    totalImports: 543,
+    unresolvedCount: 2,
+    resolvedCount: 541,
+  },
+}
+
 export default function DependencyCheckerPage() {
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState<CheckResult | null>(null)
@@ -42,8 +82,7 @@ export default function DependencyCheckerPage() {
     setError(null)
 
     try {
-      // 在实际应用中，这里会调用API来运行依赖检查
-      // 这里我们模拟API调用
+      // 尝试从API获取数据
       const response = await fetch("/api/tools/dependency-checker")
 
       if (!response.ok) {
@@ -53,58 +92,22 @@ export default function DependencyCheckerPage() {
       const data = await response.json()
       setResult(data)
     } catch (err) {
-      setError(`运行依赖检查时出错: ${err instanceof Error ? err.message : String(err)}`)
-      console.error("依赖检查错误:", err)
+      // 如果API调用失败，使用模拟数据
+      console.error("依赖检查错误，使用模拟数据:", err)
+      setResult(mockResult)
+      setError(`注意: 使用模拟数据，因为API调用失败: ${err instanceof Error ? err.message : String(err)}`)
     } finally {
       setLoading(false)
     }
   }
 
-  // 模拟初始加载
+  // 初始加载
   useEffect(() => {
-    // 模拟API响应
+    // 使用模拟数据
     setTimeout(() => {
-      const mockResult: CheckResult = {
-        scannedFiles: 120,
-        totalImports: 543,
-        unresolvedImports: [
-          {
-            source: "/app/attendance/reports/page.tsx",
-            line: 15,
-            importPath: "@v0/lib/sanitize",
-            importType: "import",
-            isResolvable: false,
-            error: "已知不存在的模块: @v0/lib/sanitize",
-          },
-          {
-            source: "/components/attendance/report/attendance-report-table.tsx",
-            line: 8,
-            importPath: "@v0/lib/sanitize",
-            importType: "import",
-            isResolvable: false,
-            error: "已知不存在的模块: @v0/lib/sanitize",
-          },
-        ],
-        resolvedImports: Array(541)
-          .fill(0)
-          .map((_, i) => ({
-            source: `/example/file${i % 30}.tsx`,
-            line: Math.floor(Math.random() * 100) + 1,
-            importPath: `@/components/example${i % 20}`,
-            importType: Math.random() > 0.7 ? "import" : Math.random() > 0.5 ? "require" : "dynamic",
-            isResolvable: true,
-          })),
-        summary: {
-          totalFiles: 120,
-          totalImports: 543,
-          unresolvedCount: 2,
-          resolvedCount: 541,
-        },
-      }
-
       setResult(mockResult)
       setLoading(false)
-    }, 1500)
+    }, 1000)
   }, [])
 
   return (

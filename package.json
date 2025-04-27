@@ -73,14 +73,14 @@
     "xlsx": "latest",
     "@testing-library/jest-dom": "latest",
     "@testing-library/react": "latest",
-    "fs": "latest",
     "path": "latest",
-    "glob": "latest",
     "chalk": "latest",
     "uuid": "latest",
     "nodemailer": "latest",
     "child_process": "latest",
-    "react-syntax-highlighter": "latest"
+    "fs": "latest",
+    "react-syntax-highlighter": "latest",
+    "glob": "latest"
   },
   "devDependencies": {
     "@types/node": "^22",

@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+// 这个文件只能在Node.js环境中运行
+// 不要在客户端代码中导入此文件
 import path from "path"
 import { checkProjectDependencies } from "./core"
 import chalk from "chalk"
