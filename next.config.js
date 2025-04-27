@@ -11,33 +11,32 @@ const nextConfig = {
         dns: false,
         child_process: false,
         path: false,
-        crypto: require.resolve('crypto-browserify'),
-        stream: require.resolve('stream-browserify'),
-        buffer: require.resolve('buffer'),
-        util: require.resolve('util'),
-        assert: require.resolve('assert'),
-        http: require.resolve('stream-http'),
-        https: require.resolve('https-browserify'),
-        os: require.resolve('os-browserify/browser'),
-        zlib: require.resolve('browserify-zlib'),
-      };
-      
+        crypto: require.resolve("crypto-browserify"),
+        stream: require.resolve("stream-browserify"),
+        buffer: require.resolve("buffer"),
+        util: require.resolve("util"),
+        assert: require.resolve("assert"),
+        http: require.resolve("stream-http"),
+        https: require.resolve("https-browserify"),
+        os: require.resolve("os-browserify/browser"),
+        zlib: require.resolve("browserify-zlib"),
+      }
+
       // 添加polyfill
       config.plugins.push(
         new config.webpack.ProvidePlugin({
-          Buffer: ['buffer', 'Buffer'],
-          process: 'process/browser',
+          Buffer: ["buffer", "Buffer"],
+          process: "process/browser",
         }),
-      );
+      )
     }
-    
-    return config;
+
+    return config
   },
-  
-  // 其他必要的配置
-  swcMinify: true,
+
+  // 移除不再支持的选项
   poweredByHeader: false,
-  
+
   // 暂时忽略类型和ESLint错误，专注于解决构建问题
   eslint: {
     ignoreDuringBuilds: true,
@@ -48,6 +47,6 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-};
+}
 
-export default nextConfig;
+module.exports = nextConfig
